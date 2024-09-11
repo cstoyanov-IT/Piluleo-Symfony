@@ -30,3 +30,30 @@ tailwind.config = {
 
  
 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  dayjs.locale('fr');
+  dayjs.extend(window.dayjs_plugin_updateLocale);
+  dayjs.updateLocale('fr', {
+      formats: {
+          LLL: 'dddd D MMMM YYYY'
+      }
+  });
+
+  function updateTime() {
+      const date = dayjs();
+      const currentTimeElement = document.querySelector('.current-time');
+      if (currentTimeElement) {
+          currentTimeElement.innerHTML = `
+              <span class="date">${date.format('dddd D MMMM YYYY, HH:mm:ss').toUpperCase()}</span>
+             
+          `;
+      }
+  }
+
+  setInterval(updateTime, 1000);
+
+});
+
+updateTime();
